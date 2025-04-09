@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-nd*297g)=3gb59mu1i_x1&af^d15twqqvh9lqaq=42kkuz9g9y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS += [
     'allauth.socialaccount',
     'dj_rest_auth',
     'rest_framework.authtoken',
+    'octofit_tracker',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,18 @@ MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+]
 
 ROOT_URLCONF = "octofit_tracker.urls"
 
@@ -93,6 +106,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'octofit_db',
+        'HOST': 'localhost',
+        'PORT': 27017,
     }
 }
 
