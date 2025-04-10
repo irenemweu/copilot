@@ -1,6 +1,9 @@
 from django.core.management.base import BaseCommand
-from pymongo import MongoClient
 from octofit_tracker.test_data import get_test_data
+from django.conf import settings
+from pymongo import MongoClient
+from datetime import timedelta
+from bson import ObjectId
 
 print('populate_db module loaded')
 
@@ -11,6 +14,13 @@ class Command(BaseCommand):
         client = MongoClient('localhost', 27017)
         db = client['octofit_db']
 
+        # Drop existing collections
+        db.users.drop()
+        db.teams.drop()
+        db.activity.drop()
+        db.leaderboard.drop()
+        db.workouts.drop()
+        
         test_data = get_test_data()
 
         # Insert test data into collections

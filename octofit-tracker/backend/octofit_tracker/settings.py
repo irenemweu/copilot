@@ -37,12 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-]
-
-INSTALLED_APPS += [
     'rest_framework',
     'corsheaders',
     'django.contrib.sites',
+    'djongo',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -59,9 +57,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
-MIDDLEWARE.insert(0, 'corsheaders.middleware.CorsMiddleware')
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = True
