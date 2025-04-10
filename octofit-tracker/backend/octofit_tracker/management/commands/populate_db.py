@@ -11,8 +11,8 @@ class Command(BaseCommand):
     help = 'Populate the octofit_db database with test data.'
 
     def handle(self, *args, **kwargs):
-        client = MongoClient('localhost', 27017)
-        db = client['octofit_db']
+        client = MongoClient(settings.DATABASES['default']['localhost'], settings.DATABASES['default']['27017'])
+        db = client[settings.DATABASES['default']['octofit_db']]
 
         # Drop existing collections
         db.users.drop()
@@ -24,10 +24,15 @@ class Command(BaseCommand):
         test_data = get_test_data()
 
         # Insert test data into collections
+        # Create users
         db.users.insert_many(test_data['users'])
+        # Create teams
         db.teams.insert_many(test_data['teams'])
+        # Create activities
         db.activities.insert_many(test_data['activities'])
+        # Create leaderboards
         db.leaderboard.insert_many(test_data['leaderboard'])
+        # Create workouts
         db.workouts.insert_many(test_data['workouts'])
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database with test data.'))
